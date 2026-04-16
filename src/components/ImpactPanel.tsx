@@ -156,6 +156,16 @@ export default function ImpactPanel() {
 
   return (
     <div className="space-y-6">
+      {/* League Grades — shown first so the key metrics are immediately visible */}
+      {diversityScore !== null ? (
+        <BalanceMeter diversityScore={diversityScore} scarcityScore={scarcityScore} chaosScore={chaosScore} />
+      ) : (
+        <div className="bg-gray-800 rounded-2xl p-5 animate-pulse">
+          <div className="h-4 w-32 bg-gray-700 rounded mb-4" />
+          <div className="h-32 bg-gray-700 rounded" />
+        </div>
+      )}
+
       {/* Position value cards */}
       <div>
         <div className="flex items-center justify-between mb-3">
@@ -200,16 +210,6 @@ export default function ImpactPanel() {
           </div>
         )}
       </div>
-
-      {/* Balance meter */}
-      {diversityScore !== null ? (
-        <BalanceMeter diversityScore={diversityScore} scarcityScore={scarcityScore} chaosScore={chaosScore} />
-      ) : (
-        <div className="bg-gray-800 rounded-2xl p-5 animate-pulse">
-          <div className="h-4 w-32 bg-gray-700 rounded mb-4" />
-          <div className="h-32 bg-gray-700 rounded" />
-        </div>
-      )}
 
       {/* Scarcity analysis */}
       <div className="bg-gray-800 rounded-2xl p-5">

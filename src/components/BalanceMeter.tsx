@@ -93,10 +93,10 @@ function GaugeCard({
   ]
 
   return (
-    <div className="flex-1 min-w-0">
+    <div className="min-w-0">
       <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">{label}</p>
       <div className="flex items-center gap-4">
-        <div className="relative w-24 h-24 shrink-0">
+        <div className="relative w-20 h-20 sm:w-24 sm:h-24 shrink-0">
           <ResponsiveContainer width="100%" height="100%">
             <RadialBarChart
               innerRadius="70%"
@@ -109,21 +109,21 @@ function GaugeCard({
             </RadialBarChart>
           </ResponsiveContainer>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className={`text-xl font-bold ${grade.textColor}`}>{score}</span>
+            <span className={`text-lg sm:text-xl font-bold ${grade.textColor}`}>{score}</span>
             <span className="text-xs text-gray-500">/100</span>
           </div>
         </div>
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <div className={`text-sm font-semibold ${grade.textColor} mb-1`}>{grade.label}</div>
           <p className="text-xs text-gray-400 leading-relaxed">{grade.description}</p>
+          <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-gray-500">
+            {legendItems.map((item) => (
+              <span key={item.text}>
+                <span style={{ color: item.color }}>●</span> {item.text}
+              </span>
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-xs text-gray-500">
-        {legendItems.map((item) => (
-          <span key={item.text}>
-            <span style={{ color: item.color }}>●</span> {item.text}
-          </span>
-        ))}
       </div>
     </div>
   )
@@ -139,53 +139,61 @@ export default function BalanceMeter({ diversityScore, scarcityScore, chaosScore
       <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-5">
         League Grades
       </h3>
-      <div className="flex gap-6 flex-wrap">
-        <GaugeCard
-          label="Positional Balance"
-          score={balScore}
-          grade={bal}
-          legendItems={[
-            { color: '#22c55e', text: '76–100 Balanced' },
-            { color: '#eab308', text: '60–75 Somewhat' },
-            { color: '#ef4444', text: '<60 One-dimensional' },
-          ]}
-        />
-        <div className="w-px bg-gray-700 self-stretch hidden sm:block" />
-        <GaugeCard
-          label="Scarcity Pressure"
-          score={scarcityScore}
-          grade={scar}
-          legendItems={[
-            { color: '#22c55e', text: '<40 Deep' },
-            { color: '#eab308', text: '40–65 Moderate' },
-            { color: '#ef4444', text: '66+ Tight' },
-          ]}
-        />
-        <div className="w-px bg-gray-700 self-stretch hidden sm:block" />
-        {chaosScore !== null ? (
+
+      {/* 1-col on mobile, 3-col on sm+. Dividers switch from horizontal to vertical. */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 divide-y divide-gray-700 sm:divide-y-0 sm:divide-x">
+        <div className="pb-5 sm:pb-0 sm:pr-5">
           <GaugeCard
-            label="Chaos"
-            score={chaosScore}
-            grade={chaosGrade(chaosScore)}
+            label="Positional Balance"
+            score={balScore}
+            grade={bal}
             legendItems={[
-              { color: '#22c55e', text: '<35 Consistent' },
-              { color: '#eab308', text: '35–65 Mixed' },
-              { color: '#ef4444', text: '66+ Chaotic' },
+              { color: '#22c55e', text: '76–100 Balanced' },
+              { color: '#eab308', text: '60–75 Somewhat' },
+              { color: '#ef4444', text: '<60 One-dimensional' },
             ]}
           />
-        ) : (
-          <div className="flex-1 min-w-0 space-y-3 animate-pulse">
-            <div className="h-3 w-16 bg-gray-700 rounded" />
-            <div className="flex items-center gap-4">
-              <div className="w-24 h-24 rounded-full bg-gray-700 shrink-0" />
-              <div className="space-y-2 flex-1">
-                <div className="h-4 w-24 bg-gray-700 rounded" />
-                <div className="h-3 w-full bg-gray-700 rounded" />
-                <div className="h-3 w-3/4 bg-gray-700 rounded" />
+        </div>
+
+        <div className="py-5 sm:py-0 sm:px-5">
+          <GaugeCard
+            label="Scarcity Pressure"
+            score={scarcityScore}
+            grade={scar}
+            legendItems={[
+              { color: '#22c55e', text: '<40 Deep' },
+              { color: '#eab308', text: '40–65 Moderate' },
+              { color: '#ef4444', text: '66+ Tight' },
+            ]}
+          />
+        </div>
+
+        <div className="pt-5 sm:pt-0 sm:pl-5">
+          {chaosScore !== null ? (
+            <GaugeCard
+              label="Chaos"
+              score={chaosScore}
+              grade={chaosGrade(chaosScore)}
+              legendItems={[
+                { color: '#22c55e', text: '<35 Consistent' },
+                { color: '#eab308', text: '35–65 Mixed' },
+                { color: '#ef4444', text: '66+ Chaotic' },
+              ]}
+            />
+          ) : (
+            <div className="space-y-3 animate-pulse">
+              <div className="h-3 w-16 bg-gray-700 rounded" />
+              <div className="flex items-center gap-4">
+                <div className="w-20 h-20 rounded-full bg-gray-700 shrink-0" />
+                <div className="space-y-2 flex-1">
+                  <div className="h-4 w-24 bg-gray-700 rounded" />
+                  <div className="h-3 w-full bg-gray-700 rounded" />
+                  <div className="h-3 w-3/4 bg-gray-700 rounded" />
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   )

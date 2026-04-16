@@ -58,48 +58,59 @@ export default function LeagueHeader() {
   }
 
   return (
-    <div className="bg-gray-900 border-b border-gray-800 px-6 py-4">
-      <div className="max-w-6xl mx-auto flex items-center justify-between gap-4 flex-wrap">
+    <div className="bg-gray-900 border-b border-gray-800 px-4 sm:px-6 py-3 sm:py-4">
+      <div className="max-w-6xl mx-auto flex items-center gap-3">
 
-        {/* League info + manager avatars */}
-        <div className="flex items-center gap-4 min-w-0">
-          <div className="min-w-0">
-            <h1 className="text-xl font-bold text-white truncate">{league.name}</h1>
-            <p className="text-sm text-gray-400">
+        {/* League name + meta — takes all remaining space, truncates gracefully */}
+        <div className="flex-1 min-w-0">
+          <h1 className="text-lg sm:text-xl font-bold text-white truncate leading-tight">
+            {league.name}
+          </h1>
+          <div className="flex items-center gap-2 sm:gap-3 mt-0.5 flex-wrap">
+            <p className="text-xs sm:text-sm text-gray-400 shrink-0">
               {league.season} · {league.total_rosters} teams
             </p>
-          </div>
 
-          {managers.length > 0 && (
-            <div className="flex items-center">
-              {/* Overlapping avatar stack */}
-              <div className="flex -space-x-1.5">
-                {managers.map((m) => (
-                  <ManagerAvatar key={m.userId} manager={m} />
-                ))}
-              </div>
-              <span className="ml-2.5 text-xs text-gray-500 whitespace-nowrap">
-                {managers.length} managers
-              </span>
-            </div>
-          )}
+            {managers.length > 0 && (
+              <>
+                {/* sm+: overlapping avatar stack */}
+                <div className="hidden sm:flex items-center gap-2">
+                  <div className="flex -space-x-1.5">
+                    {managers.map((m) => (
+                      <ManagerAvatar key={m.userId} manager={m} />
+                    ))}
+                  </div>
+                  <span className="text-xs text-gray-500 whitespace-nowrap">
+                    {managers.length} managers
+                  </span>
+                </div>
+
+                {/* mobile: plain text count — no avatar stack */}
+                <span className="sm:hidden text-xs text-gray-500">
+                  {managers.length} managers
+                </span>
+              </>
+            )}
+          </div>
         </div>
 
-        {/* Actions */}
+        {/* Action buttons — always right-aligned, never wrap */}
         <div className="flex gap-2 shrink-0">
           <button
             onClick={handleReload}
-            className="text-sm px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 transition-colors"
+            className="text-xs sm:text-sm px-2.5 sm:px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 transition-colors"
           >
             Refresh
           </button>
           <button
             onClick={handleReset}
-            className="text-sm px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 transition-colors"
+            className="text-xs sm:text-sm px-2.5 sm:px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 transition-colors"
           >
-            Change league
+            <span className="hidden sm:inline">Change league</span>
+            <span className="sm:hidden">Change</span>
           </button>
         </div>
+
       </div>
     </div>
   )
