@@ -5,7 +5,8 @@ import SettingsPanel from '../components/SettingsPanel'
 import { useState } from 'react'
 
 export default function SandboxPage() {
-  const [panelOpen, setPanelOpen] = useState(true)
+  // Desktop: open by default. Mobile: closed so metrics are visible first.
+  const [panelOpen, setPanelOpen] = useState(() => window.innerWidth >= 768)
 
   return (
     <div className="min-h-screen bg-gray-950 flex flex-col">
@@ -15,7 +16,7 @@ export default function SandboxPage() {
       <div className="flex flex-1 overflow-hidden">
 
         {/* ── Main content ─────────────────────────────────────────────────── */}
-        <div className="flex-1 min-w-0 overflow-y-auto">
+        <div className="flex-1 min-w-0 overflow-y-auto pb-24 md:pb-0">
           <div className="max-w-5xl mx-auto px-4 py-6 space-y-6">
             {/* Tab bar hidden until Compare Scenarios is re-enabled */}
             {/* <div className="flex items-center gap-1 bg-gray-900 rounded-xl p-1 w-fit">
