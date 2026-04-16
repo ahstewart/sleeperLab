@@ -200,7 +200,7 @@ export default function SettingsPanel({ open, onToggle }: SettingsPanelProps) {
                  001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
-          Settings
+          Modify League Rules
           {totalChanges > 0 && (
             <span className="bg-blue-600 text-blue-100 text-xs px-1.5 py-0.5 rounded-full leading-none">
               {totalChanges}
