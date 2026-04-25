@@ -11,6 +11,7 @@ export interface RosterSettings {
   te: number
   flex: number
   superFlex: number
+  idpFlex: number
   k: number
   dst: number
   bench: number

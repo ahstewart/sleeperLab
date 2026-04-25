@@ -17,6 +17,7 @@ export function parseRosterPositions(
     te: count('TE'),
     flex: count('FLEX'),
     superFlex: count('SUPER_FLEX'),
+    idpFlex: count('IDP_FLEX'),
     k: count('K'),
     dst: count('DEF'),
     bench: count('BN'),

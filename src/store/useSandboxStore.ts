@@ -22,6 +22,7 @@ const DEFAULT_ROSTER: RosterSettings = {
   te: 1,
   flex: 1,
   superFlex: 0,
+  idpFlex: 0,
   k: 1,
   dst: 1,
   bench: 6,

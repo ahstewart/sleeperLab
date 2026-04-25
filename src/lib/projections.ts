@@ -1,4 +1,5 @@
 import type { PlayerMap, ProjectionMap, ScoringSettings } from './types'
+import { DEF_STAT_BASELINES } from './nflBaselines'
 
 const SCORED_POSITIONS = ['QB', 'RB', 'WR', 'TE', 'K', 'DEF'] as const
 
@@ -46,6 +47,17 @@ export function calcPositionScoresFromProjections(
       if (mult !== undefined) pts += value * mult
     }
 
+    // For DEF, the Sleeper projection feed omits many scored stats (tackles,
+    // 3-and-outs, return yards, etc.). Fill gaps with 2024 season baselines.
+    if (pos === 'DEF') {
+      for (const [stat, baseVal] of Object.entries(DEF_STAT_BASELINES)) {
+        if (!(stat in proj.stats)) {
+          const mult = scoring[stat]
+          if (mult !== undefined) pts += baseVal * mult
+        }
+      }
+    }
+
     if (!byPosition[pos]) byPosition[pos] = []
     byPosition[pos].push(pts)
   }
@@ -90,6 +102,15 @@ export function calcPositionSpreadFromProjections(
     for (const [stat, value] of Object.entries(proj.stats)) {
       const mult = scoring[stat]
       if (mult !== undefined) pts += value * mult
+    }
+
+    if (pos === 'DEF') {
+      for (const [stat, baseVal] of Object.entries(DEF_STAT_BASELINES)) {
+        if (!(stat in proj.stats)) {
+          const mult = scoring[stat]
+          if (mult !== undefined) pts += baseVal * mult
+        }
+      }
     }
 
     if (!byPosition[pos]) byPosition[pos] = []

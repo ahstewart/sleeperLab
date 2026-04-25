@@ -19,6 +19,7 @@ const FIELDS: FieldConfig[] = [
   { key: 'te',        label: 'TE',          description: 'Starting tight end slots',                  min: 0,  max: 4  },
   { key: 'flex',      label: 'FLEX',        description: 'RB / WR / TE flex spots',                   min: 0,  max: 6  },
   { key: 'superFlex', label: 'SUPER FLEX',  description: 'QB / RB / WR / TE super flex spots',       min: 0,  max: 2  },
+  { key: 'idpFlex',   label: 'IDP FLEX',    description: 'Individual defensive player flex spots',    min: 0,  max: 6  },
   { key: 'k',         label: 'K',           description: 'Kicker slots',                              min: 0,  max: 2  },
   { key: 'dst',       label: 'DST',         description: 'Defense / Special Teams slots',             min: 0,  max: 2  },
   { key: 'bench',     label: 'Bench',       description: 'Bench spots (not including IR)',             min: 0,  max: 12 },
@@ -82,7 +83,7 @@ export default function RosterPanel({ searchTerm = '' }: { searchTerm?: string }
 
   const totalStarters =
     roster.qb + roster.rb + roster.wr + roster.te +
-    roster.flex + roster.superFlex + roster.k + roster.dst
+    roster.flex + roster.superFlex + roster.idpFlex + roster.k + roster.dst
 
   return (
     <div className="space-y-4">

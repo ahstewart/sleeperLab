@@ -10,7 +10,8 @@
       "Bash(node -e \"const pkg = require\\('./node_modules/@mlc-ai/web-llm/package.json'\\); console.log\\(pkg.version\\)\")",
       "Bash(node -e \"const exports = Object.keys\\(require\\('./node_modules/@mlc-ai/web-llm/lib/index.js'\\)\\); console.log\\(exports.join\\('\\\\n'\\)\\)\")",
       "Bash(node -e ':*)",
-      "Bash(git rm:*)"
+      "Bash(git rm:*)",
+      "WebFetch(domain:api.sleeper.app)"
     ]
   }
 }
